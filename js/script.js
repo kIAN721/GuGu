@@ -439,3 +439,94 @@ yesBtn.addEventListener('click', () => {
 modalCloseBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
+
+// ================= PHOTO & VIDEO ALBUM LIGHTBOX =================
+let currentAlbumMedia = [];
+let currentMediaIndex = 0;
+
+function isVideoFile(filename) {
+  return /\.(mp4|webm|ogg|mov)$/i.test(filename);
+}
+
+// Automatically count how many photos/videos are in each card on load
+document.querySelectorAll('.polaroid[data-images]').forEach(card => {
+  const files = card.getAttribute('data-images').split(',').map(s => s.trim()).filter(Boolean);
+  const badge = card.querySelector('.photo-count');
+  if (badge) {
+    const hasVideo = files.some(f => isVideoFile(f));
+    badge.textContent = `${hasVideo ? '🎞️' : '📸'} ${files.length}`;
+  }
+});
+
+function openAlbum(cardElement) {
+  const mediaAttr = cardElement.getAttribute('data-images');
+  const titleAttr = cardElement.getAttribute('data-title');
+  if (!mediaAttr) return;
+
+  currentAlbumMedia = mediaAttr.split(',').map(s => s.trim()).filter(Boolean);
+  currentMediaIndex = 0;
+
+  document.getElementById('album-title').textContent = titleAttr || 'Memories';
+  updateAlbumView();
+  document.getElementById('album-modal').classList.add('active');
+}
+
+function updateAlbumView() {
+  const imgEl = document.getElementById('album-current-img');
+  const videoEl = document.getElementById('album-current-video');
+  const counterEl = document.getElementById('album-counter');
+  const dotsContainer = document.getElementById('album-dots');
+
+  const currentFile = currentAlbumMedia[currentMediaIndex];
+
+  // Always pause and reset video when switching slides
+  videoEl.pause();
+  videoEl.removeAttribute('src');
+
+  if (isVideoFile(currentFile)) {
+    imgEl.style.display = 'none';
+    videoEl.style.display = 'block';
+    videoEl.src = currentFile;
+    videoEl.load();
+  } else {
+    videoEl.style.display = 'none';
+    imgEl.style.display = 'block';
+    imgEl.style.opacity = '0';
+    setTimeout(() => {
+      imgEl.src = currentFile;
+      imgEl.style.opacity = '1';
+    }, 100);
+  }
+
+  counterEl.textContent = `${currentMediaIndex + 1} / ${currentAlbumMedia.length}`;
+
+  // Render indicator dots
+  dotsContainer.innerHTML = '';
+  currentAlbumMedia.forEach((_, idx) => {
+    const dot = document.createElement('span');
+    dot.className = 'album-dot' + (idx === currentMediaIndex ? ' active' : '');
+    dot.onclick = () => {
+      currentMediaIndex = idx;
+      updateAlbumView();
+    };
+    dotsContainer.appendChild(dot);
+  });
+}
+
+function changePhoto(direction) {
+  currentMediaIndex += direction;
+  if (currentMediaIndex < 0) {
+    currentMediaIndex = currentAlbumMedia.length - 1;
+  } else if (currentMediaIndex >= currentAlbumMedia.length) {
+    currentMediaIndex = 0;
+  }
+  updateAlbumView();
+}
+
+function closeAlbum(event) {
+  if (!event || event.target.id === 'album-modal') {
+    const videoEl = document.getElementById('album-current-video');
+    if (videoEl) videoEl.pause();
+    document.getElementById('album-modal').classList.remove('active');
+  }
+}

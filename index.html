@@ -110,24 +110,40 @@
 
       <!-- Polaroids -->
       <div>
-        <h3 class="section-title">Things I Love About You</h3>
-        <p class="section-subtitle">Hover or tap each card</p>
+        <h3 class="section-title">Things I Cherish</h3>
+        <p class="section-subtitle">Tap any card to open our album 📸✨</p>
         <div class="cards-grid">
-          <div class="polaroid">
-            <div class="polaroid-img">🌸</div>
-            <h4>Your Sweet Smile</h4>
-            <p>It never fails to brighten up even my longest days.</p>
+          
+          <!-- Card 1: 5 Photos of Us -->
+          <div class="polaroid" onclick="openAlbum(this)" data-title="Moments With You 💕" data-images="images/us1.jpg,images/us2.jpg,images/us3.jpg,images/us4.jpg,images/us5.jpg">
+            <div class="polaroid-img">
+              <img src="images/us1.jpg" alt="Us together">
+              <span class="photo-count">📸 5</span>
+            </div>
+            <h4>Moments With You</h4>
+            <p>Every memory we make together is something I'll always hold close to my heart.</p>
           </div>
-          <div class="polaroid">
-            <div class="polaroid-img">☕</div>
-            <h4>Our Little Talks</h4>
-            <p>Whether deep or silly, I could listen to you for hours.</p>
+
+          <!-- Card 2: 9 Chat Screenshots -->
+          <div class="polaroid" onclick="openAlbum(this)" data-title="Our Random Chats 💬" data-images="images/chat1.jpg,images/chat2.jpg,images/chat3.jpg,images/chat4.jpg,images/chat5.jpg,images/chat6.jpg,images/chat7.jpg,images/chat8.jpg,images/chat9.jpg">
+            <div class="polaroid-img">
+              <img src="images/chat1.jpg" alt="Our random chats">
+              <span class="photo-count">📸 9</span>
+            </div>
+            <h4>Our Random Chats</h4>
+            <p>Whether deep talks or silly random texts, I cherish every single minute we spend talking.</p>
           </div>
-          <div class="polaroid">
-            <div class="polaroid-img">✨</div>
-            <h4>Your Genuine Vibe</h4>
-            <p>The effortless way you make everyone around you feel warm.</p>
+
+          <!-- Card 3: 13 Photos + 1 Video of Her -->
+          <div class="polaroid" onclick="openAlbum(this)" data-title="My Favorite View 🌸" data-images="images/her1.jpg,images/her2.jpg,images/her3.jpg,images/her4.jpg,images/her5.jpg,images/her6.jpg,images/her7.jpg,images/her8.jpg,images/her9.jpg,images/her10.jpg,images/her11.jpg,images/her12.jpg,images/her13.jpg,images/her14.mp4">
+            <div class="polaroid-img">
+              <img src="images/her1.jpg" alt="My favorite view">
+              <span class="photo-count">🎞️ 14</span>
+            </div>
+            <h4>My Favorite View</h4>
+            <p>Just seeing your sweet smile has a way of making even my longest days feel light.</p>
           </div>
+
         </div>
       </div>
 
@@ -170,6 +186,24 @@
       <button id="modal-close-btn" class="yes-btn modal-btn">
         Can't Wait! 💐
       </button>
+    </div>
+  </div>
+
+<!-- Photo & Video Album Popup Modal -->
+  <div id="album-modal" class="album-modal" onclick="closeAlbum(event)">
+    <div class="album-box" onclick="event.stopPropagation()">
+      <button class="album-close" onclick="closeAlbum()">✕</button>
+      <h3 id="album-title">Moments With You</h3>
+      
+      <div class="album-viewer">
+        <button class="album-nav prev" onclick="changePhoto(-1)">❮</button>
+        <img id="album-current-img" src="" alt="Album photo">
+        <video id="album-current-video" controls playsinline style="display: none;"></video>
+        <button class="album-nav next" onclick="changePhoto(1)">❯</button>
+      </div>
+      
+      <div id="album-dots" class="album-dots"></div>
+      <p id="album-counter" class="album-counter">1 / 1</p>
     </div>
   </div>
 
