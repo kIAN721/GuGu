@@ -1,0 +1,312 @@
+/* Stage 2: Content reveal container */
+#letter-container {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.8s ease-in;
+  width: 100%;
+}
+
+#letter-container.visible {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+#letter-container.fade-in {
+  opacity: 1;
+}
+
+/* Parchment Card */
+.parchment {
+  background: #FFFDF8;
+  border: 1px solid #F8D9DF;
+  border-radius: 20px;
+  padding: 36px 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  position: relative;
+}
+
+.greeting {
+  font-family: Georgia, cursive, serif;
+  font-size: 28px;
+  color: #E11D48;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.letter-body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #4A3E3F;
+  min-height: 120px;
+}
+
+.signature {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed #F8D9DF;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.sig-note {
+  font-size: 12px;
+  color: #998385;
+}
+
+.sig-right {
+  text-align: right;
+}
+
+.sig-right span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #998385;
+}
+
+.sig-right strong {
+  font-family: Georgia, cursive, serif;
+  font-size: 22px;
+  color: #E11D48;
+}
+
+/* Polaroids */
+.section-title {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: #796668;
+  margin-bottom: 16px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .cards-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+.polaroid {
+  background: white;
+  padding: 14px 14px 22px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.polaroid:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px rgba(225, 29, 72, 0.15);
+}
+
+.polaroid-img {
+  height: 140px;
+  background: #FFF1F2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  margin-bottom: 12px;
+}
+
+.polaroid h4 {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  color: #1F1617;
+  margin-bottom: 6px;
+}
+
+.polaroid p {
+  font-size: 12px;
+  color: #796668;
+  line-height: 1.4;
+}
+
+/* Secret Card */
+.secret-box {
+  background: white;
+  border: 1px solid #F9CBD2;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.secret-title {
+  font-family: Georgia, serif;
+  font-size: 20px;
+}
+
+.secret-subtitle {
+  font-size: 12px;
+  color: #796668;
+  margin-top: 4px;
+}
+
+.scratch-wrapper {
+  position: relative;
+  max-width: 380px;
+  height: 120px;
+  margin: 14px auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.scratch-secret {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #FFE4E6 0%, #FEF3C7 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #E11D48;
+}
+
+.secret-tag {
+  font-size: 11px;
+  color: #796668;
+  font-weight: normal;
+  margin-top: 6px;
+}
+
+#scratch-canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* Question / Date Proposal */
+.proposal-box {
+  background: linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 50%, #FFF5F6 100%);
+  border: 2px dashed #F8B4BD;
+  border-radius: 24px;
+  padding: 32px 20px;
+  width: 100%;
+}
+
+.proposal-icon {
+  font-size: 32px;
+}
+
+.proposal-box h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #1F1617;
+  margin: 10px 0 6px;
+}
+
+.proposal-subtitle {
+  font-size: 13px;
+  color: #796668;
+}
+
+.btn-row {
+  position: relative;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.yes-btn {
+  background: #E11D48;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+  transition: transform 0.15s, background 0.15s;
+  z-index: 2;
+}
+
+.yes-btn:hover { background: #BE123C; }
+.yes-btn:active { transform: scale(0.95); }
+
+.no-btn {
+  background: #E2E8F0;
+  color: #475569;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  z-index: 2;
+  /* This ensures the jump is smooth rather than instant */
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.modal-card h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #1F1617;
+  margin-bottom: 8px;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: #554446;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.modal-btn {
+  width: 100%;
+}

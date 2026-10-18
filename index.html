@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter For 顾顾 🥺✨</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <canvas id="petals-canvas"></canvas>
+
+  <button id="music-toggle" class="music-btn">
+    <span id="music-icon">🎵</span>
+    <span id="music-text">Play Music</span>
+  </button>
+
+  <div class="container">
+    
+    <!-- ================= STAGE 1: ENVELOPE STAGE ================= -->
+    <div id="envelope-stage">
+      <span class="badge">A special letter just for you</span>
+      <h1>Open This Whenever You Feel Sad 顾顾 🥺✨</h1>
+      <p class="subtitle">I made this little page with all the love i have for you.</p>
+
+      <!-- 3D Envelope -->
+      <div class="perspective-box">
+        <div id="envelope" class="envelope">
+          <div class="envelope-base"></div>
+          <div id="envelope-flap" class="envelope-flap"></div>
+          <div class="envelope-pocket"></div>
+          <div id="wax-seal" class="wax-seal">💌</div>
+        </div>
+      </div>
+      <div id="tap-hint" class="tap-hint">Tap the wax seal to open 💌</div>
+    </div>
+
+    <!-- ================= STAGE 2: LETTER & MODULES ================= -->
+    <div id="letter-container">
+      
+      <!-- Handwritten style letter -->
+      <div class="parchment">
+        <div class="greeting">‌ကုကုရေ.....,</div>
+        <div id="typewriter" class="letter-body"></div>
+        <div class="signature">
+          <span class="sig-note"></span>
+          <div class="sig-right">
+            <span></span>
+            <strong>ဝမ်ဝမ်း...✨</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- MP3 Song Playlist -->
+      <div class="playlist-box">
+        <h3 class="section-title">Songs For You 🎶</h3>
+        <p class="section-subtitle">Tap any song to listen while you read</p>
+
+        <!-- Now Playing Bar -->
+        <div class="now-playing-bar">
+          <span id="now-playing-icon" class="np-icon">🎵</span>
+          <div class="np-details">
+            <span id="now-playing-title" class="np-title">Select a song below</span>
+            <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" max="100">
+          </div>
+          <button id="play-pause-main" class="np-btn">▶️</button>
+        </div>
+
+        <div class="song-list">
+          <button class="song-item active" data-src="audio/forya.mp3" data-title="For ya (给你呀) - 蒋小呢">
+            <span class="song-icon">▶️</span>
+            <div class="song-info">
+              <span class="song-title">For ya (给你呀)</span>
+              <span class="song-artist">蒋小呢 (Jiang Xiao Ne)</span>
+            </div>
+            <span class="playing-bars">🎵</span>
+          </button>
+
+          <button class="song-item" data-src="audio/ilikeyou.mp3" data-title="I Like You So Much, You'll Know It">
+            <span class="song-icon">▶️</span>
+            <div class="song-info">
+              <span class="song-title">I Like You So Much, You'll Know It</span>
+              <span class="song-artist">Wang Junqi (我多喜欢你，你会知道)</span>
+            </div>
+            <span class="playing-bars">🎵</span>
+          </button>
+
+          <button class="song-item" data-src="audio/myforever.mp3" data-title="My Forever - Bunny Phyoe">
+            <span class="song-icon">▶️</span>
+            <div class="song-info">
+              <span class="song-title">My Forever</span>
+              <span class="song-artist">Bunny Phyoe</span>
+            </div>
+            <span class="playing-bars">🎵</span>
+          </button>
+
+          <button class="song-item" data-src="audio/stay.mp3" data-title="stay. - Hsu Rinaa">
+            <span class="song-icon">▶️</span>
+            <div class="song-info">
+              <span class="song-title">stay.</span>
+              <span class="song-artist">Hsu Rinaa</span>
+            </div>
+            <span class="playing-bars">🎵</span>
+          </button>
+        </div>
+
+        <!-- Hidden HTML5 Audio Engine -->
+        <audio id="mp3-player" preload="auto"></audio>
+      </div>
+
+      <!-- Polaroids -->
+      <div>
+        <h3 class="section-title">Things I Love About You</h3>
+        <p class="section-subtitle">Hover or tap each card</p>
+        <div class="cards-grid">
+          <div class="polaroid">
+            <div class="polaroid-img">🌸</div>
+            <h4>Your Sweet Smile</h4>
+            <p>It never fails to brighten up even my longest days.</p>
+          </div>
+          <div class="polaroid">
+            <div class="polaroid-img">☕</div>
+            <h4>Our Little Talks</h4>
+            <p>Whether deep or silly, I could listen to you for hours.</p>
+          </div>
+          <div class="polaroid">
+            <div class="polaroid-img">✨</div>
+            <h4>Your Genuine Vibe</h4>
+            <p>The effortless way you make everyone around you feel warm.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scratch Card -->
+      <div class="secret-box">
+        <h3 class="secret-title">Secret Note</h3>
+        <p class="secret-subtitle">Rub the card below with your finger or mouse</p>
+        <div class="scratch-wrapper">
+          <div class="scratch-secret">
+            "You make my heart skip a beat every single time."
+            <span class="secret-tag">✨ Glad you unveiled it!</span>
+          </div>
+          <canvas id="scratch-canvas"></canvas>
+        </div>
+      </div>
+
+      <!-- Date Proposal -->
+      <div class="proposal-box">
+        <div class="proposal-icon">☕🍨</div>
+        <h3>Will you go on a date with me?</h3>
+        <p class="proposal-subtitle">I promise great coffee, good food, and plenty of laughs.</p>
+        
+        <div class="btn-row">
+          <button id="yes-btn" class="yes-btn">Yes, I'd love to! 💖</button>
+          <button id="no-btn" class="no-btn">No 🙈</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon">🎉🥰</div>
+      <h3>It's a Date!</h3>
+      <p>
+        You just made my whole week. Check your messages, I'm already planning our spot! ☕✨
+      </p>
+      <button id="modal-close-btn" class="yes-btn modal-btn">
+        Can't Wait! 💐
+      </button>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

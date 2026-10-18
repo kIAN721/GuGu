@@ -1,0 +1,441 @@
+/* ==========================================================
+   1. Procedural Audio Synthesizer (Zero external dependencies)
+========================================================== */
+class ProceduralAudio {
+    constructor() {
+      this.ctx = null;
+      this.isPlaying = false;
+      this.timer = null;
+      this.step = 0;
+      this.score = [
+        261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66, 349.23, 440.00, 523.25
+      ];
+    }
+    
+    init() {
+      if (!this.ctx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioContext();
+      }
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+    }
+  
+    playNote(freq) {
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.12, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 1.4);
+    }
+  
+    playChimeChord() {
+      this.init();
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        setTimeout(() => this.playNote(freq), idx * 110);
+      });
+    }
+  
+    start() {
+      this.init();
+      this.isPlaying = true;
+      this.step = 0;
+      const musicText = document.getElementById('music-text');
+      if (musicText) musicText.textContent = 'Mute';
+      this.loop();
+    }
+  
+    loop() {
+      if (!this.isPlaying) return;
+      this.playNote(this.score[this.step % this.score.length]);
+      this.step++;
+      this.timer = setTimeout(() => this.loop(), 640);
+    }
+  
+    stop() {
+      this.isPlaying = false;
+      if (this.timer) clearTimeout(this.timer);
+      const musicText = document.getElementById('music-text');
+      if (musicText) musicText.textContent = 'Play Music';
+    }
+  
+    toggle() {
+      if (this.isPlaying) this.stop();
+      else this.start();
+    }
+  }
+  
+  const audio = new ProceduralAudio();
+  const musicToggle = document.getElementById('music-toggle');
+  if (musicToggle) {
+    musicToggle.addEventListener('click', () => audio.toggle());
+  }
+  
+  /* ==========================================================
+     2. Falling Petals Canvas
+  ========================================================== */
+  const canvas = document.getElementById('petals-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+  
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  
+    const petals = Array.from({ length: 24 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height - height,
+      size: Math.random() * 8 + 8,
+      speedX: Math.random() * 1.5 - 0.75,
+      speedY: Math.random() * 1 + 1,
+      rotation: Math.random() * 360,
+      rotSpeed: Math.random() * 1 - 0.5,
+      opacity: Math.random() * 0.4 + 0.3
+    }));
+  
+    function drawPetal(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size, p.size / 1.8, 0, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 182, 193, ${p.opacity})`;
+      ctx.fill();
+      ctx.restore();
+    }
+  
+    function animatePetals() {
+      ctx.clearRect(0, 0, width, height);
+      petals.forEach(p => {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotation += p.rotSpeed;
+        if (p.y > height + 20) {
+          p.y = -20;
+          p.x = Math.random() * width;
+        }
+        drawPetal(p);
+      });
+      requestAnimationFrame(animatePetals);
+    }
+    animatePetals();
+  }
+  
+  /* ==========================================================
+     3. Two-Stage Envelope Transition & Typewriter Animation
+  ========================================================== */
+  const envelopeStage = document.getElementById('envelope-stage');
+  const envelope = document.getElementById('envelope');
+  const flap = document.getElementById('envelope-flap');
+  const wax = document.getElementById('wax-seal');
+  const tapHint = document.getElementById('tap-hint');
+  const letterBox = document.getElementById('letter-container');
+  const typewriter = document.getElementById('typewriter');
+  
+  const message = 
+    "တစ်ကယ်တော့လေ ဘာပြောရမှန်းမသိဘူး အများကြီးပြောမိရင်လည်း စိတ်ရှုပ်မှာစိုးရိမ်တယ်. " +
+    "တစ်ရက်ကလေးမှမမေ့ခဲ့ပါဘူးနော် ကုကုလေးကိုအများကြီးလွမ်းပြီး သတိရနေတာ🥺. " +
+    "ပြောရင်တော့ရယ်စရာကြီး ဒါမဲ့ဝမ်ဝမ်း ကုကိုစလိုက်ရင် ကုဝမ်ဝမ်းကိုထိုးတာလေးလည်းလွမ်းတယ်🥹🙏. " +
+    "အလုပ်လုပ်တာလည်း 加油👊🏻နော် အရမ်းလည်း ကိုယ့်ကိုယ်ကိုတွန်းအားမပေးနဲ့နော်✨. " +
+    "ကဲကဲ အများကြီးမပြောတော့ပါဘူး သဘောကျပြီးပြုံးသွားတာဆိုရင်ပဲအများကြီးကျေနပ်ပါပြီဗျာ ကုကု💞.";
+  
+  let opened = false;
+  
+  function triggerOpen(e) {
+    if (e) e.stopPropagation();
+    if (opened) return;
+    opened = true;
+  
+    // Play sound & start background melody
+    audio.playChimeChord();
+    if (!audio.isPlaying) {
+      audio.start();
+    }
+  
+    // Visual open triggers
+    if (wax) wax.classList.add('broken');
+    if (flap) flap.classList.add('opened');
+    if (tapHint) tapHint.style.opacity = '0';
+  
+    // Transition to stage 2
+    setTimeout(() => {
+      if (envelopeStage) envelopeStage.classList.add('fade-out');
+      
+      setTimeout(() => {
+        if (envelopeStage) envelopeStage.style.display = 'none';
+        if (letterBox) letterBox.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+        setTimeout(() => {
+          if (letterBox) letterBox.classList.add('fade-in');
+          typewrite();
+          initScratch();
+        }, 50);
+      }, 600);
+    }, 850);
+  }
+  
+  if (envelope) envelope.addEventListener('click', triggerOpen);
+  if (wax) wax.addEventListener('click', triggerOpen);
+  
+  function typewrite() {
+    if (!typewriter) return;
+    let i = 0;
+    typewriter.textContent = "";
+    const timer = setInterval(() => {
+      if (i < message.length) {
+        typewriter.textContent += message.charAt(i);
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 28);
+  }
+  
+/* ==========================================================
+   6. MP3 Playlist Controller
+========================================================== */
+const mp3Player = document.getElementById('mp3-player');
+const songButtons = document.querySelectorAll('.song-item');
+const nowPlayingTitle = document.getElementById('now-playing-title');
+const playPauseMain = document.getElementById('play-pause-main');
+const progressBar = document.getElementById('progress-bar');
+const topMusicText = document.getElementById('music-text');
+
+let currentSongIndex = 0;
+let isMp3Playing = false;
+
+function loadAndPlaySong(index, autoPlay = true) {
+  const btn = songButtons[index];
+  if (!btn || !mp3Player) return;
+
+  currentSongIndex = index;
+  const src = btn.getAttribute('data-src');
+  const title = btn.getAttribute('data-title');
+
+  // Stop synthesized chimes so they don't overlap with real songs
+  if (typeof audio !== 'undefined' && audio.isPlaying) {
+    audio.stop();
+  }
+
+  // Update active button state
+  songButtons.forEach(item => {
+    item.classList.remove('active');
+    item.querySelector('.song-icon').textContent = '▶️';
+  });
+  btn.classList.add('active');
+
+  if (mp3Player.getAttribute('src') !== src) {
+    mp3Player.setAttribute('src', src);
+    mp3Player.load();
+  }
+  if (nowPlayingTitle) nowPlayingTitle.textContent = title;
+
+  if (autoPlay) {
+    mp3Player.play().then(() => {
+      isMp3Playing = true;
+      btn.querySelector('.song-icon').textContent = '⏸️';
+      if (playPauseMain) playPauseMain.textContent = '⏸️';
+      if (topMusicText) topMusicText.textContent = 'Mute';
+    }).catch(err => console.log("Make sure the MP3 file exists in the audio/ folder:", err));
+  }
+}
+
+function toggleMp3Play() {
+  if (!mp3Player) return;
+  if (!mp3Player.getAttribute('src')) {
+    loadAndPlaySong(0, true);
+    return;
+  }
+
+  const activeBtn = songButtons[currentSongIndex];
+  if (mp3Player.paused) {
+    if (typeof audio !== 'undefined' && audio.isPlaying) audio.stop();
+    mp3Player.play().then(() => {
+      isMp3Playing = true;
+      if (activeBtn) activeBtn.querySelector('.song-icon').textContent = '⏸️';
+      if (playPauseMain) playPauseMain.textContent = '⏸️';
+      if (topMusicText) topMusicText.textContent = 'Mute';
+    }).catch(err => console.log("MP3 play error:", err));
+  } else {
+    mp3Player.pause();
+    isMp3Playing = false;
+    if (activeBtn) activeBtn.querySelector('.song-icon').textContent = '▶️';
+    if (playPauseMain) playPauseMain.textContent = '▶️';
+    if (topMusicText) topMusicText.textContent = 'Play Music';
+  }
+}
+
+// Click a song button in the playlist
+songButtons.forEach((btn, idx) => {
+  btn.addEventListener('click', () => {
+    if (currentSongIndex === idx && !mp3Player.paused) {
+      toggleMp3Play();
+    } else {
+      loadAndPlaySong(idx, true);
+    }
+  });
+});
+
+// Play/Pause button on the Now Playing bar
+if (playPauseMain) {
+  playPauseMain.addEventListener('click', toggleMp3Play);
+}
+
+// Sync progress bar as the song plays
+if (mp3Player && progressBar) {
+  mp3Player.addEventListener('timeupdate', () => {
+    if (mp3Player.duration) {
+      progressBar.value = (mp3Player.currentTime / mp3Player.duration) * 100;
+    }
+  });
+
+  progressBar.addEventListener('input', () => {
+    if (mp3Player.duration) {
+      mp3Player.currentTime = (progressBar.value / 100) * mp3Player.duration;
+    }
+  });
+
+  // Automatically play the next song in the list when a song finishes
+  mp3Player.addEventListener('ended', () => {
+    const nextIndex = (currentSongIndex + 1) % songButtons.length;
+    loadAndPlaySong(nextIndex, true);
+  });
+}
+
+  /* ==========================================================
+     5. Scratch-off Canvas
+  ========================================================== */
+  function initScratch() {
+    const sCanvas = document.getElementById('scratch-canvas');
+    if (!sCanvas) return;
+    const sCtx = sCanvas.getContext('2d');
+    const rect = sCanvas.getBoundingClientRect();
+    sCanvas.width = rect.width || 300;
+    sCanvas.height = rect.height || 120;
+  
+    sCtx.fillStyle = '#CBD5E1';
+    sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+    sCtx.fillStyle = '#64748B';
+    sCtx.font = 'bold 13px sans-serif';
+    sCtx.textAlign = 'center';
+    sCtx.fillText('✨ Rub here to reveal ✨', sCanvas.width / 2, sCanvas.height / 2 + 5);
+  
+    let isScratching = false;
+    function scratch(e) {
+      if (!isScratching) return;
+      const box = sCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = clientX - box.left;
+      const y = clientY - box.top;
+  
+      sCtx.globalCompositeOperation = 'destination-out';
+      sCtx.beginPath();
+      sCtx.arc(x, y, 18, 0, Math.PI * 2);
+      sCtx.fill();
+    }
+  
+    sCanvas.addEventListener('mousedown', () => isScratching = true);
+    sCanvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
+    window.addEventListener('mouseup', () => isScratching = false);
+    window.addEventListener('touched', () => isScratching = false);
+    sCanvas.addEventListener('mousemove', scratch);
+    sCanvas.addEventListener('touchmove', scratch);
+  }
+
+/* ==========================================================
+   6. Runaway "No" Button & Success Modal
+========================================================== */
+const noBtn = document.getElementById('no-btn');
+const yesBtn = document.getElementById('yes-btn');
+const modal = document.getElementById('modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+
+let escapeAttempts = 0;
+// These are the funny messages that will cycle through as she tries to click "No"
+const quips = [
+  "Nice try! 😉", 
+  "Almost got it! 🏃💨", 
+  "Try the other button! 🌹", 
+  "No isn't an option today! 💖",
+  "Think again! 🙈",
+  "Nope, try the big red one! ✨"
+];
+
+function evade(e) {
+  if (e) e.preventDefault();
+  escapeAttempts++;
+  
+  // Calculate a random distance to jump away
+  const rx = (Math.random() - 0.5) * 220;
+  const ry = (Math.random() - 0.5) * 80;
+  
+  // Move the button using CSS transform
+  noBtn.style.transform = `translate(${rx}px, ${ry}px)`;
+  
+  // If you want to show text right under or next to it, 
+  // you can dynamically create a small floating quip or alert!
+  showFloatingQuip(quips[escapeAttempts % quips.length], e);
+}
+
+// Optional: Creates a cute floating text bubble where she tried to click
+function textBubble(text, clientX, clientY) {
+  const bubble = document.createElement('div');
+  bubble.textContent = text;
+  bubble.style.position = 'fixed';
+  bubble.style.left = `${clientX}px`;
+  bubble.style.top = `${clientY - 20}px`;
+  bubble.style.background = '#ffffff';
+  bubble.style.color = '#E11D48';
+  bubble.style.padding = '4px 10px';
+  bubble.style.borderRadius = '12px';
+  bubble.style.fontSize = '12px';
+  bubble.style.fontWeight = 'bold';
+  bubble.style.boxShadow = '0 4px 12px rgba(225,29,72,0.15)';
+  bubble.style.zIndex = '1000';
+  bubble.style.pointerEvents = 'none';
+  bubble.style.transition = 'all 1.5s ease-out';
+  
+  document.body.appendChild(bubble);
+  
+  setTimeout(() => {
+    bubble.style.transform = 'translateY(-30px)';
+    bubble.style.opacity = '0';
+  }, 50);
+
+  setTimeout(() => {
+    bubble.remove();
+  }, 600);
+}
+
+function showFloatingQuip(text, e) {
+  const clientX = e.clientX || (e.touches && e.touches[0].clientX) || window.innerWidth / 2;
+  const clientY = e.clientY || (e.touches && e.touches[0].clientY) || window.innerHeight / 2;
+  textBubble(text, clientX, clientY);
+}
+
+// Desktop hover trigger
+noBtn.addEventListener('mouseover', evade);
+// Mobile touch trigger
+noBtn.addEventListener('touchstart', evade);
+// Fallback click trigger just in case she manages to tap it
+noBtn.addEventListener('click', evade);
+
+yesBtn.addEventListener('click', () => {
+  modal.style.display = 'flex';
+});
+
+modalCloseBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
