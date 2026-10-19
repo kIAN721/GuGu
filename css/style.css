@@ -499,180 +499,6 @@ h1 {
   line-height: 1.4;
 }
 
-/* Secret Card */
-.secret-box {
-  background: white;
-  border: 1px solid #F9CBD2;
-  border-radius: 20px;
-  padding: 24px 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  width: 100%;
-}
-
-.secret-title {
-  font-family: Georgia, serif;
-  font-size: 20px;
-}
-
-.secret-subtitle {
-  font-size: 12px;
-  color: #796668;
-  margin-top: 4px;
-}
-
-.scratch-wrapper {
-  position: relative;
-  max-width: 380px;
-  height: 120px;
-  margin: 14px auto 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
-}
-
-.scratch-secret {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #FFE4E6 0%, #FEF3C7 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  font-family: Georgia, serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: #E11D48;
-}
-
-.secret-tag {
-  font-size: 11px;
-  color: #796668;
-  font-weight: normal;
-  margin-top: 6px;
-}
-
-#scratch-canvas {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  cursor: crosshair;
-  touch-action: none;
-}
-
-/* Question / Date Proposal */
-.proposal-box {
-  background: linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 50%, #FFF5F6 100%);
-  border: 2px dashed #F8B4BD;
-  border-radius: 24px;
-  padding: 32px 20px;
-  width: 100%;
-}
-
-.proposal-icon {
-  font-size: 32px;
-}
-
-.proposal-box h3 {
-  font-family: Georgia, serif;
-  font-size: 24px;
-  color: #1F1617;
-  margin: 10px 0 6px;
-}
-
-.proposal-subtitle {
-  font-size: 13px;
-  color: #796668;
-}
-
-.btn-row {
-  position: relative;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.yes-btn {
-  background: #E11D48;
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: 9999px;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
-  transition: transform 0.15s, background 0.15s;
-  z-index: 2;
-}
-
-.yes-btn:hover { background: #BE123C; }
-.yes-btn:active { transform: scale(0.95); }
-
-.no-btn {
-  background: #E2E8F0;
-  color: #475569;
-  border: none;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 9999px;
-  cursor: pointer;
-  z-index: 2;
-  /* This ensures the jump is smooth rather than instant */
-  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1); 
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal-card {
-  background: white;
-  border-radius: 24px;
-  padding: 32px 24px;
-  max-width: 360px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.modal-icon {
-  font-size: 48px;
-  margin-bottom: 8px;
-}
-
-.modal-card h3 {
-  font-family: Georgia, serif;
-  font-size: 24px;
-  color: #1F1617;
-  margin-bottom: 8px;
-}
-
-.modal-card p {
-  font-size: 14px;
-  color: #554446;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-.modal-btn {
-  width: 100%;
-}
-
 /* ================= POLAROID ALBUM & LIGHTBOX ================= */
 .polaroid {
   cursor: pointer;
@@ -840,4 +666,203 @@ h1 {
   margin-top: 8px;
   font-size: 0.85rem;
   color: #888;
+}
+
+/* Secret Card */
+.secret-box {
+  background: white;
+  border: 1px solid #F9CBD2;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.secret-title {
+  font-family: Georgia, serif;
+  font-size: 20px;
+}
+
+.secret-subtitle {
+  font-size: 12px;
+  color: #796668;
+  margin-top: 4px;
+}
+
+.scratch-wrapper {
+  position: relative;
+  max-width: 440px;
+  height: auto;
+  margin: 14px auto 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.scratch-secret {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #FFE4E6 0%, #FEF3C7 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  font-family: Georgia, serif;
+  font-size: 15.5px;
+  line-height: 1.9;
+  font-weight: 700;
+  color: #E11D48;
+  text-align: center;
+}
+
+.secret-tag {
+  font-size: 12px;
+  color: #796668;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+#scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* Question / Date Proposal */
+.proposal-box {
+  background: linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 50%, #FFF5F6 100%);
+  border: 2px dashed #F8B4BD;
+  border-radius: 24px;
+  padding: 32px 20px;
+  width: 100%;
+}
+
+.proposal-icon {
+  font-size: 32px;
+}
+
+.proposal-box h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #1F1617;
+  margin: 10px 0 6px;
+}
+
+.proposal-subtitle {
+  font-size: 13px;
+  color: #796668;
+}
+
+.btn-row {
+  position: relative;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.yes-btn {
+  background: #E11D48;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+  transition: transform 0.15s, background 0.15s;
+  z-index: 2;
+}
+
+.yes-btn:hover { background: #BE123C; }
+.yes-btn:active { transform: scale(0.95); }
+
+.no-btn {
+  background: #E2E8F0;
+  color: #475569;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  z-index: 2;
+  /* This ensures the jump is smooth rather than instant */
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.modal-card h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #1F1617;
+  margin-bottom: 8px;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: #554446;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.modal-btn {
+  width: 100%;
+}
+
+/* Extra breathing room for Burmese text in Proposal & Modal */
+.proposal-box h3,
+.modal-card h3 {
+  line-height: 1.5;
+  font-size: 21px;
+}
+
+.proposal-subtitle,
+.modal-card p {
+  line-height: 1.85;
+  font-size: 14px;
+}
+
+.yes-btn,
+.no-btn {
+  line-height: 1.5;
 }
