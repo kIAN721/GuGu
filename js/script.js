@@ -278,13 +278,39 @@ function toggleMp3Play() {
   }
 }
 
+let notiTimer = null;
+
+function showSongNoti() {
+  const noti = document.getElementById('song-noti');
+  if (!noti) return;
+  noti.classList.add('show');
+
+  if (notiTimer) clearTimeout(notiTimer);
+  notiTimer = setTimeout(() => {
+    noti.classList.remove('show');
+  }, 10000); // Hide after 10 seconds
+}
+
+function closeSongNoti() {
+  const noti = document.getElementById('song-noti');
+  if (noti) noti.classList.remove('show');
+  if (notiTimer) clearTimeout(notiTimer);
+}
+
 // Click a song button in the playlist
 songButtons.forEach((btn, idx) => {
   btn.addEventListener('click', () => {
+    const src = btn.getAttribute('data-src') || '';
+
     if (currentSongIndex === idx && !mp3Player.paused) {
       toggleMp3Play();
     } else {
       loadAndPlaySong(idx, true);
+
+      // ONLY show notification when she manually clicks "thamudaya.mp3"
+      if (src.includes('thamudaya.mp3')) {
+        showSongNoti();
+      }
     }
   });
 });

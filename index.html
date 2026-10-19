@@ -103,11 +103,20 @@
             <span class="playing-bars">🎵</span>
           </button>
 
-          <button class="song-item" data-src="audio/theingara.mp3" data-title="Theingara Thachin Ta Poke - Sai Sai Kham Leng">
+          <button class="song-item" data-src="audio/theingara.mp3" data-title="သိင်္ဂါရသီချင်းတစ်ပုဒ် - Sai Sai Kham Leng ">
             <span class="song-icon">▶️</span>
             <div class="song-info">
-              <span class="song-title">Theingara Thachin Ta Poke</span>
+              <span class="song-title">သိင်္ဂါရသီချင်းတစ်ပုဒ်</span>
               <span class="song-artist">Sai Sai Kham Leng</span>
+            </div>
+            <span class="playing-bars">🎵</span>
+          </button>
+
+          <button class="song-item" data-src="audio/thamudaya.mp3" data-title="သမုဒယနဲ့ ချည်တဲ့နွယ် - G Fatt">
+            <span class="song-icon">▶️</span>
+            <div class="song-info">
+              <span class="song-title">သမုဒယနဲ့ ချည်တဲ့နွယ်</span>
+              <span class="song-artist">G Fatt</span>
             </div>
             <span class="playing-bars">🎵</span>
           </button>
@@ -234,6 +243,16 @@
       <div id="album-dots" class="album-dots"></div>
       <p id="album-counter" class="album-counter">1 / 1</p>
     </div>
+  </div>
+
+<!-- Special Song Notification Toast -->
+  <div id="song-noti" class="song-noti">
+    <span class="noti-icon">💌</span>
+    <div class="noti-content">
+      <strong>ဟိတ် သိနေတယ်နော်😏!!!!!!!</strong>
+      <p id="song-noti-text">ဒီသီချင်းကထည့်ချင်လို့တော့မဟုတ်ပါဘူးနော်😒. ကုကဒီသီချင်းနားထောင်ရင် တစ်မျိုးလေး အေးချမ်းသလိုမျိုးခံစားရတယ်ဆိုလို့ နားထောင်စေချင်လို့ထည့်လိုက်တာပါနော်💞.</p>
+    </div>
+    <button class="noti-close" onclick="closeSongNoti()">✕</button>
   </div>
 
   <script src="js/script.js"></script>
