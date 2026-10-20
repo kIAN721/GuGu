@@ -561,9 +561,9 @@ h1 {
 }
 
 .polaroid p {
-  font-size: 12px;
+  font-size: 12.5px;
   color: #796668;
-  line-height: 1.4;
+  line-height: 1.8;
 }
 
 /* ================= POLAROID ALBUM & LIGHTBOX ================= */
@@ -802,6 +802,111 @@ h1 {
   border-radius: 16px;
   cursor: crosshair;
   touch-action: none;
+}
+
+/* No-Pressure Reassurance Card & Reactions */
+.reassurance-box {
+  background: #FFFDF9;
+  border: 1px solid #F8D9DF;
+  border-radius: 20px;
+  padding: 24px 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  width: 100%;
+}
+
+.reassurance-badge {
+  display: inline-block;
+  background: #FFF1F2;
+  color: #E11D48;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.reassurance-text {
+  font-size: 13.5px;
+  color: #4A3E3F;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.reaction-area {
+  border-top: 1px dashed #F8D9DF;
+  padding-top: 16px;
+}
+
+.reaction-hint {
+  font-size: 12px;
+  color: #796668;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.reaction-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.react-btn {
+  background: #FFF5F6;
+  border: 1.5px solid #F9CBD2;
+  border-radius: 16px;
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 95px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.react-btn:hover {
+  background: #FFE4E6;
+  transform: translateY(-4px) scale(1.04);
+}
+
+.react-btn.selected {
+  background: #FFE4E6;
+  border-color: #E11D48;
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.18);
+  transform: scale(1.05);
+}
+
+.react-emoji {
+  font-size: 22px;
+}
+
+.react-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #332729;
+  line-height: 1.4;
+}
+
+.reaction-status {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: #E11D48;
+  font-weight: 600;
+  min-height: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reaction-status.visible {
+  opacity: 1;
+}
+
+/* Polaroid Burmese Line Spacing */
+.polaroid p {
+  line-height: 1.8;
+  font-size: 12.5px;
 }
 
 /* Question / Date Proposal */

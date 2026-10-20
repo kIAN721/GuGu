@@ -476,7 +476,57 @@ function closeAlbum(event) {
   }
 
 /* ==========================================================
-   7. Runaway "No" Button & Success Modal
+   7. Silent Heart Reaction (Sends instant alert to you!)
+========================================================== */
+// Paste your free Web3Forms Access Key inside the quotes below:
+const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+function sendReaction(reactionName, btnElement) {
+  // Highlight the button she tapped
+  document.querySelectorAll('.react-btn').forEach(btn => btn.classList.remove('selected'));
+  btnElement.classList.add('selected');
+
+  // Burst floating emoji animation where she tapped
+  const rect = btnElement.getBoundingClientRect();
+  const emoji = btnElement.querySelector('.react-emoji').textContent;
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      textBubble(
+        emoji,
+        rect.left + rect.width / 2 + (Math.random() - 0.5) * 50,
+        rect.top
+      );
+    }, i * 90);
+  }
+
+  // Show gentle confirmation message on her screen
+  const statusEl = document.getElementById('reaction-status');
+  if (statusEl) {
+    statusEl.textContent = "ကုကုရဲ့ reaction လေးကို ဝမ်ဝမ်းဆီ ပို့ပေးလိုက်ပြီနော် 🤍✨";
+    statusEl.classList.add('visible');
+  }
+
+  // Send instant notification to your email via Web3Forms
+  if (WEB3FORMS_KEY && WEB3FORMS_KEY !== "ab838c13-d3d9-4cd9-871f-046a008912c8") {
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: `💌 顾顾 reacted to your letter! (${reactionName})`,
+        from_name: "Guguletter Website",
+        reaction: reactionName,
+        time: new Date().toLocaleString()
+      })
+    }).catch(err => console.log("Reaction log error:", err));
+  }
+}
+
+/* ==========================================================
+   8. Runaway "No" Button & Success Modal
 ========================================================== */
 const noBtn = document.getElementById('no-btn');
 const yesBtn = document.getElementById('yes-btn');
