@@ -476,11 +476,15 @@ function closeAlbum(event) {
   }
 
 /* ==========================================================
-   7. Silent Heart Reaction (Sends instant alert to your email!)
+   7. Silent Heart Reaction (Form-based secure email alert)
 ========================================================== */
-const WEB3FORMS_KEY = "ab838c13-d3d9-4cd9-871f-046a008912c8";
+function setReactionVal(reactionName, btnElement) {
+  // Set the hidden input value so the form knows which button she clicked
+  const inputEl = document.getElementById('reaction-input');
+  const subjectEl = document.getElementById('reaction-subject');
+  if (inputEl) inputEl.value = reactionName;
+  if (subjectEl) subjectEl.value = `💌 顾顾 reacted to your letter! (${reactionName})`;
 
-function sendReaction(reactionName, btnElement) {
   // Highlight the button she tapped
   document.querySelectorAll('.react-btn').forEach(btn => btn.classList.remove('selected'));
   btnElement.classList.add('selected');
@@ -504,22 +508,11 @@ function sendReaction(reactionName, btnElement) {
     statusEl.textContent = "ကုကုရဲ့ reaction လေးကို ဝမ်ဝမ်းဆီ ပို့ပေးလိုက်ပြီနော် 🤍✨";
     statusEl.classList.add('visible');
   }
+}
 
-  // Send instant notification to your email via Web3Forms
-  fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify({
-      access_key: WEB3FORMS_KEY,
-      subject: `💌 顾顾 reacted to your letter! (${reactionName})`,
-      from_name: "Guguletter Website",
-      reaction: reactionName,
-      time: new Date().toLocaleString()
-    })
-  }).catch(err => console.log("Reaction log error:", err));
+function handleReactionSubmit(e) {
+  // Let the form submit silently in the background iframe without reloading page
+  return true;
 }
 
 /* ==========================================================
