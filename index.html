@@ -209,35 +209,24 @@
 
         <div class="reaction-area">
           <p class="reaction-hint">စာမပို့ချင်သေးရင်တောင် ဒီအောက်က အသည်းလေးတစ်ခုကို အသာလေးနှိပ်သွားလို့ရတယ်နော် 👇</p>
-          
-          <!-- Hidden form to securely post to Web3Forms without CORS errors -->
-          <form action="https://api.web3forms.com/submit" method="POST" id="reaction-form" target="hidden-iframe" onsubmit="handleReactionSubmit(event)">
-            <input type="hidden" name="access_key" value="ab838c13-d3d9-4cd9-871f-046a008912c8">
-            <input type="hidden" name="subject" id="reaction-subject" value="💌 顾顾 reacted to your letter!">
-            <input type="hidden" name="reaction" id="reaction-input" value="">
-            
-            <div class="reaction-buttons">
-              <button type="submit" class="react-btn" onclick="setReactionVal('🤍 ဖတ်ပြီးပြီနော် (White Heart)', this)">
-                <span class="react-emoji">🤍</span>
-                <span class="react-label">ဖတ်ပြီးပြီနော်</span>
-              </button>
-              <button type="submit" class="react-btn" onclick="setReactionVal('🥺 ကျေးဇူးပါနော် (Touched)', this)">
-                <span class="react-emoji">🥺</span>
-                <span class="react-label">ကျေးဇူးပါနော်</span>
-              </button>
-              <button type="submit" class="react-btn" onclick="setReactionVal('🌸 ပြုံးမိပါတယ် (Smiling)', this)">
-                <span class="react-emoji">🌸</span>
-                <span class="react-label">ပြုံးမိပါတယ်</span>
-              </button>
-            </div>
-          </form>
-          
-          <!-- Invisible iframe so the page doesn't redirect when she clicks -->
-          <iframe name="hidden-iframe" id="hidden-iframe" style="display:none;"></iframe>
-
+          <div class="reaction-buttons">
+            <button type="button" class="react-btn" onclick="sendReaction('🤍 ဖတ်ပြီးပြီနော် (White Heart)', this)">
+              <span class="react-emoji">🤍</span>
+              <span class="react-label">ဖတ်ပြီးပြီနော်</span>
+            </button>
+            <button type="button" class="react-btn" onclick="sendReaction('🥺 ကျေးဇူးပါနော် (Touched)', this)">
+              <span class="react-emoji">🥺</span>
+              <span class="react-label">ကျေးဇူးပါနော်</span>
+            </button>
+            <button type="button" class="react-btn" onclick="sendReaction('🌸 ပြုံးမိပါတယ် (Smiling)', this)">
+              <span class="react-emoji">🌸</span>
+              <span class="react-label">ပြုံးမိပါတယ်</span>
+            </button>
+          </div>
           <p id="reaction-status" class="reaction-status"></p>
         </div>
       </div>
+
 
       <!-- Smile & Chat Prompt -->
       <div class="proposal-box">
