@@ -476,15 +476,24 @@ function closeAlbum(event) {
   }
 
 /* ==========================================================
-   7. Silent Heart Reaction (Form-based secure email alert)
+   7. Silent Heart Reaction (Instant Telegram Bot Alert!)
 ========================================================== */
-function setReactionVal(reactionName, btnElement) {
-  // Set the hidden input value so the form knows which button she clicked
-  const inputEl = document.getElementById('reaction-input');
-  const subjectEl = document.getElementById('reaction-subject');
-  if (inputEl) inputEl.value = reactionName;
-  if (subjectEl) subjectEl.value = `💌 顾顾 reacted to your letter! (${reactionName})`;
+const TELEGRAM_BOT_TOKEN = "8832112215:AAGga3nuyOUKmOcTPjLs1FcU8zS9Rf7QCrc";
+const TELEGRAM_CHAT_ID = "1694644020";
 
+function sendTelegramAlert(textMessage) {
+  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: textMessage
+    })
+  }).catch(err => console.log("Telegram error:", err));
+}
+
+function sendReaction(reactionName, btnElement) {
   // Highlight the button she tapped
   document.querySelectorAll('.react-btn').forEach(btn => btn.classList.remove('selected'));
   btnElement.classList.add('selected');
@@ -508,11 +517,10 @@ function setReactionVal(reactionName, btnElement) {
     statusEl.textContent = "ကုကုရဲ့ reaction လေးကို ဝမ်ဝမ်းဆီ ပို့ပေးလိုက်ပြီနော် 🤍✨";
     statusEl.classList.add('visible');
   }
-}
 
-function handleReactionSubmit(e) {
-  // Let the form submit silently in the background iframe without reloading page
-  return true;
+  // Send instant message to your Telegram!
+  const msg = `💌 顾顾 reacted to your letter!\n\n✨ Reaction: ${reactionName}\n⏰ Time: ${new Date().toLocaleString()}`;
+  sendTelegramAlert(msg);
 }
 
 /* ==========================================================
@@ -524,7 +532,6 @@ const modal = document.getElementById('modal');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 
 let escapeAttempts = 0;
-// These are the funny messages that will cycle through as she tries to click "No"
 const quips = [
   "ပြုံးနေတာ သိပါတယ်နော်! 😉", 
   "အပြုံးလေးကို ဖုံးမထားပါနဲ့! 🏃💨", 
@@ -538,19 +545,13 @@ function evade(e) {
   if (e) e.preventDefault();
   escapeAttempts++;
   
-  // Calculate a random distance to jump away
   const rx = (Math.random() - 0.5) * 220;
   const ry = (Math.random() - 0.5) * 80;
   
-  // Move the button using CSS transform
   noBtn.style.transform = `translate(${rx}px, ${ry}px)`;
-  
-  // If you want to show text right under or next to it, 
-  // you can dynamically create a small floating quip or alert!
   showFloatingQuip(quips[escapeAttempts % quips.length], e);
 }
 
-// Optional: Creates a cute floating text bubble where she tried to click
 function textBubble(text, clientX, clientY) {
   const bubble = document.createElement('div');
   bubble.textContent = text;
@@ -586,15 +587,13 @@ function showFloatingQuip(text, e) {
   textBubble(text, clientX, clientY);
 }
 
-// Desktop hover trigger
 noBtn.addEventListener('mouseover', evade);
-// Mobile touch trigger
 noBtn.addEventListener('touchstart', evade);
-// Fallback click trigger just in case she manages to tap it
 noBtn.addEventListener('click', evade);
 
 yesBtn.addEventListener('click', () => {
   modal.style.display = 'flex';
+  sendTelegramAlert(`💖 顾顾 clicked "ပြုံးမိသွားပြီ 🙄" at the bottom of your letter!\n⏰ Time: ${new Date().toLocaleString()}`);
 });
 
 modalCloseBtn.addEventListener('click', () => {
