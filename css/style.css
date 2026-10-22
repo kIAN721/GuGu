@@ -375,6 +375,24 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 280px; /* Limits the height so it becomes scrollable */
+  overflow-y: auto;  /* Enables smooth vertical scrolling */
+  padding-right: 4px; /* Leaves a little space for the scrollbar */
+}
+
+/* Optional: Custom clean scrollbar styling for mobile/desktop */
+.song-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.song-list::-webkit-scrollbar-track {
+  background: #FFFDF9;
+  border-radius: 10px;
+}
+
+.song-list::-webkit-scrollbar-thumb {
+  background: #F8B4BD;
+  border-radius: 10px;
 }
 
 .song-item {

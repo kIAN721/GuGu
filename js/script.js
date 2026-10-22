@@ -514,7 +514,7 @@ function sendReaction(reactionName, btnElement) {
   // Show gentle confirmation message on her screen
   const statusEl = document.getElementById('reaction-status');
   if (statusEl) {
-    statusEl.textContent = "ကုကုရဲ့ reaction လေးကို ဝမ်ဝမ်းဆီ ပို့ပေးလိုက်ပြီနော် 🤍✨";
+    statusEl.textContent = "ကုကု reaction is sent to ဝမ်ဝမ်း 🤍✨";
     statusEl.classList.add('visible');
   }
 
