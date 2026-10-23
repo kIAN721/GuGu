@@ -470,7 +470,7 @@ function closeAlbum(event) {
     sCanvas.addEventListener('mousedown', () => isScratching = true);
     sCanvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
     window.addEventListener('mouseup', () => isScratching = false);
-    window.addEventListener('touched', () => isScratching = false);
+    window.addEventListener('touchend', () => isScratching = false);
     sCanvas.addEventListener('mousemove', scratch);
     sCanvas.addEventListener('touchmove', scratch);
   }
