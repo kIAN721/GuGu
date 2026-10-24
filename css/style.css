@@ -54,31 +54,6 @@ body {
   background: #FFE4E6;
 }
 
-/* Top-Left Home Button */
-.home-nav-btn {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #F9CBD2;
-  border-radius: 9999px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #E11D48;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-}
-
-.home-nav-btn:hover {
-  background: #FFE4E6;
-}
-
 .container {
   position: relative;
   z-index: 10;
